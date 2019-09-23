@@ -5,21 +5,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "savedcontacts")
 @IdClass(SavedContacts.class)
 public class SavedContacts extends Auditable implements Serializable
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long savedcontactid;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties("savedContacts")
     private User user;
-
+    @Id
     private int contactid;
 
     public SavedContacts()
@@ -33,15 +32,7 @@ public class SavedContacts extends Auditable implements Serializable
     }
 
 
-    public long getSavedcontactid()
-    {
-        return savedcontactid;
-    }
 
-    public void setSavedcontactid(long savedcontactid)
-    {
-        this.savedcontactid = savedcontactid;
-    }
 
     public User getUser()
     {
@@ -64,10 +55,26 @@ public class SavedContacts extends Auditable implements Serializable
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SavedContacts that = (SavedContacts) o;
+        return contactid == that.contactid &&
+                Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(user, contactid);
+    }
+
+    @Override
     public String toString()
     {
         return "SavedContacts{" +
-                "savedcontactid=" + savedcontactid +
+
                 ", user=" + user +
                 ", contactid=" + contactid +
                 '}';

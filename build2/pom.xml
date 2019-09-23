@@ -17,7 +17,6 @@
     <properties>
         <java.version>12</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -136,7 +135,7 @@
 
     <build>
         <!--        <finalName>${project.artifactId}</finalName>-->
-        <finalName>skylerwebdev-sprintbooks</finalName>
+        <finalName>cardorganizer</finalName>
 
         <plugins>
             <plugin>

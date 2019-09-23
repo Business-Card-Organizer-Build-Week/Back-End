@@ -1,6 +1,7 @@
 package local.skylerwebdev.businesscardorganizer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,12 +12,14 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "usercontact")
-@IdClass(UserContact.class)
+//@IdClass(UserContact.class)
 public class UserContact extends Auditable implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long contactid;
+
+
 
     @Column(nullable = false)
     @Email
@@ -36,6 +39,7 @@ public class UserContact extends Auditable implements Serializable
     @JoinColumn(name = "userid",
             nullable = false)
     @JsonIgnoreProperties("userContacts")
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
     @ManyToOne
@@ -148,19 +152,6 @@ public class UserContact extends Auditable implements Serializable
     {
         return usercontacttype;
     }
-
-//    public List<SavedContacts> getSavedcontacts()
-//    {
-//        return savedcontacts;
-//    }
-//
-//    public void setSavedcontacts(List<SavedContacts> savedcontacts)
-//    {
-//        this.savedcontacts = savedcontacts;
-//    }
-
-
-
 
     public void setUsercontacttype(UserContactType usercontacttype)
     {

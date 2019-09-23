@@ -2,6 +2,7 @@ package local.skylerwebdev.businesscardorganizer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "users")
 public class User extends Auditable
 {
+    @ApiModelProperty(name = "userid", value = "Primary Key for Users Auto Generated", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
@@ -22,6 +24,18 @@ public class User extends Auditable
     @Column(nullable = false,
             unique = true)
     private String username;
+
+    @Column(nullable =true)
+    private String fname;
+
+    @Column(nullable =true)
+    private String lname;
+
+    @Column(nullable =true)
+    private String busname;
+
+    @Column(nullable = true)
+    private String title;
 
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -48,9 +62,13 @@ public class User extends Auditable
     {
     }
 
-    public User(String username, String password, List<UserRoles> userRoles)
+    public User(String username, String fname, String lname, String busname, String title, String password, List<UserRoles> userRoles)
     {
         setUsername(username);
+        this.fname = fname;
+        this.lname = lname;
+        this.busname = busname;
+        this.title = title;
         setPassword(password);
         for (UserRoles ur : userRoles)
         {
@@ -77,6 +95,46 @@ public class User extends Auditable
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    public String getFname()
+    {
+        return fname;
+    }
+
+    public void setFname(String fname)
+    {
+        this.fname = fname;
+    }
+
+    public String getLname()
+    {
+        return lname;
+    }
+
+    public void setLname(String lname)
+    {
+        this.lname = lname;
+    }
+
+    public String getBusname()
+    {
+        return busname;
+    }
+
+    public void setBusname(String busname)
+    {
+        this.busname = busname;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
     }
 
     public String getPassword()
@@ -146,6 +204,10 @@ public class User extends Auditable
         return "User{" +
                 "userid=" + userid +
                 ", username='" + username + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
+                ", busname='" + busname + '\'' +
+                ", title='" + title + '\'' +
                 ", password='" + password + '\'' +
                 ", userroles=" + userroles +
                 ", userContacts=" + userContacts +

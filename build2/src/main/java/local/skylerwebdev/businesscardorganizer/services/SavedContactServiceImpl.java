@@ -23,7 +23,9 @@ public class SavedContactServiceImpl implements SavedContactService
     @Override
     public List<SavedContacts> findAll()
     {
-        return null;
+        List<SavedContacts> list = new ArrayList<>();
+        savedContactsRepository.findAll().iterator().forEachRemaining(list::add);
+        return list;
     }
 
     @Override

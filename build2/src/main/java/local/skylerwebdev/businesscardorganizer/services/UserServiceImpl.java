@@ -4,10 +4,12 @@ import local.skylerwebdev.businesscardorganizer.exceptions.ResourceFoundExceptio
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceNotFoundException;
 import local.skylerwebdev.businesscardorganizer.models.*;
 import local.skylerwebdev.businesscardorganizer.repository.RoleRepository;
+import local.skylerwebdev.businesscardorganizer.repository.SavedContactsRepository;
 import local.skylerwebdev.businesscardorganizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     @Autowired
     private RoleRepository rolerepos;
+
+    @Autowired
+    SavedContactsRepository savedContactsRepository;
 
 
     @Transactional
@@ -90,7 +95,10 @@ public class UserServiceImpl implements UserDetailsService, UserService
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPasswordNoEncrypt(user.getPassword());
-
+        newUser.setFname(user.getFname());
+        newUser.setLname(user.getLname());
+        newUser.setBusname(user.getBusname());
+        newUser.setTitle(user.getTitle());
         ArrayList<UserRoles> newRoles = new ArrayList<>();
         for (UserRoles ur : user.getUserroles())
         {
@@ -131,6 +139,22 @@ public class UserServiceImpl implements UserDetailsService, UserService
             {
                 currentUser.setUsername(user.getUsername());
             }
+            if (user.getFname() != null)
+            {
+                currentUser.setFname(user.getFname());
+            }
+            if (user.getLname() != null)
+        {
+            currentUser.setLname(user.getLname());
+        }
+            if (user.getBusname() != null)
+        {
+            currentUser.setBusname(user.getBusname());
+        }
+            if (user.getTitle() !=null)
+            {
+                currentUser.setTitle(user.getTitle());
+            }
 
             if (user.getPassword() != null)
             {
@@ -150,6 +174,14 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 {
                     currentUser.getUserContacts()
                                .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
+                }
+            }
+
+            if(user.getSavedContacts().size() > 0)
+            {
+                for (SavedContacts s : user.getSavedContacts())
+                {
+                    currentUser.getSavedContacts().add(new SavedContacts(currentUser, s.getContactid()));
                 }
             }
 
@@ -198,5 +230,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
     }
 
+    @Override
+    public void addSavedContact(long userid, int contactid)
+    {
 
+    }
 }

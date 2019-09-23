@@ -28,10 +28,10 @@ public class UserContactServiceImpl implements UserContactService
     }
 
     @Override
-    public UserContact findUseremailById(long id)
+    public UserContact findUserContactById(long contactid) throws ResourceNotFoundException
     {
-        return usercontactrepos.findById(id)
-                             .orElseThrow(() -> new ResourceNotFoundException("Useremail with id " + id + " Not Found!"));
+        return usercontactrepos.findById(contactid)
+                             .orElseThrow(() -> new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!"));
     }
 
     @Override

@@ -25,5 +25,6 @@ public interface UserService
 
     void addUserRole(long userid, long roleid);
 
+    void addSavedContact(long userid, int contactid);
 
 }

@@ -51,7 +51,7 @@ public class SeedData implements CommandLineRunner
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         admins.add(new UserRoles(new User(), r3));
-        User u1 = new User("admin", "password", admins);
+        User u1 = new User("admin", "John", "Smith", "TestBusName", "Title", "password", admins);
 
         u1.getUserContacts()
           .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555",u1 ,ct1));
@@ -67,7 +67,7 @@ public class SeedData implements CommandLineRunner
         ArrayList<UserRoles> datas = new ArrayList<>();
         datas.add(new UserRoles(new User(), r3));
         datas.add(new UserRoles(new User(), r2));
-        User u2 = new User("cinnamon", "1234567", datas);
+        User u2 = new User("cinnamon", "John", "Smith", "TestBusName", "Title", "1234567", datas);
         u2.getUserContacts()
           .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct1));
         u2.getUserContacts()
@@ -79,23 +79,20 @@ public class SeedData implements CommandLineRunner
         // user
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
-        User u3 = new User("barnbarn", "ILuvM4th!", users);
+        User u3 = new User("barnbarn", "John", "Smith", "TestBusName", "Title", "ILuvM4th!", users);
         u3.getUserContacts()
           .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct1));
         userService.save(u3);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
-        User u4 = new User("Bob", "password", users);
+        User u4 = new User("Bob", "John", "Smith", "TestBusName", "Title", "password", users);
         userService.save(u4);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
-        User u5 = new User("Jane", "password", users);
+        User u5 = new User("Jane",  "John", "Smith", "TestBusName", "Title","password", users);
         userService.save(u5);
 
-//        User u10 = userService.findUserById(10);
-//        SavedContacts s1 = new SavedContacts(u10, 8);
-//        savedContactService.save(s1);
-    }
+         }
 }

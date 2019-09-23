@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/useremails")
+@RequestMapping("/usercontact")
 public class UserContactController
 {
     private static final Logger logger = LoggerFactory.getLogger(UserContactController.class);
@@ -38,16 +38,16 @@ public class UserContactController
     }
 
 
-    @GetMapping(value = "/useremail/{useremailId}",
+    @GetMapping(value = "/{id}",
                 produces = {"application/json"})
     public ResponseEntity<?> getUserEmailById(HttpServletRequest request,
                                               @PathVariable
-                                              Long useremailId)
+                                              Long id)
     {
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        UserContact ue = userContactService.findUseremailById(useremailId);
+        UserContact ue = userContactService.findUserContactById(id);
         return new ResponseEntity<>(ue, HttpStatus.OK);
     }
 

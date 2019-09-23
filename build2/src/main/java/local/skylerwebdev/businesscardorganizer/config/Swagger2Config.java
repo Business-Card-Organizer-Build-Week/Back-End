@@ -22,7 +22,7 @@ public class Swagger2Config
     {
         return new Docket(DocumentationType.SWAGGER_2).select()
                                                       //                .apis(RequestHandlerSelectors.any())
-                                                      .apis(RequestHandlerSelectors.basePackage("com.lambdaschool.oauthmin"))
+                                                      .apis(RequestHandlerSelectors.basePackage("local.skylerwebdev.businesscardorganizer"))
                                                       .paths(PathSelectors.any())
                                                       .build()
                                                       .useDefaultResponseMessages(false) // Allows only my exception responses
@@ -32,11 +32,9 @@ public class Swagger2Config
 
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("Java Spring Back End Starting Project")
-                                   .description("A starting application for developing Java Spring Back End Projects")
-                                   .contact(new Contact("John Mitchell", "http://www.lambdaschool.com", "john@lambdaschool.com"))
-                                   .license("MIT")
-                                   .licenseUrl("https://github.com/LambdaSchool/java-starthere/blob/master/LICENSE")
+        return new ApiInfoBuilder().title("Backend for Business Card Organizer")
+                                   .description("An Authenticated Back-End for Business Card Organzier Project")
+                                   .contact(new Contact("Skyler Dowdy", "https://github.com/Business-Card-Organizer-Build-Week", "skylerwebdev@gmail.com"))
                                    .version("1.0.0")
                                    .build();
     }

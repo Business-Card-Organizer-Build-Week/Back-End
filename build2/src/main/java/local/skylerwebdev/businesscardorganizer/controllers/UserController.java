@@ -168,4 +168,18 @@ public class UserController
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @PostMapping("/user/{userid}/contact/{contactid}")
+    public ResponseEntity<?> postSavedContactsByIds(HttpServletRequest request,
+                                               @PathVariable
+                                                       long userid,
+                                               @PathVariable
+                                                       int contactid)
+    {
+        logger.trace(request.getMethod()
+                .toUpperCase() + " " + request.getRequestURI() + " accessed");
+
+        userService.addSavedContact(userid, contactid);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

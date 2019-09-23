@@ -8,7 +8,7 @@ public interface UserContactService
 {
     List<UserContact> findAll();
 
-    UserContact findUseremailById(long id);
+    UserContact findUserContactById(long contactid);
 
     List<UserContact> findByUserName(String username);
 
