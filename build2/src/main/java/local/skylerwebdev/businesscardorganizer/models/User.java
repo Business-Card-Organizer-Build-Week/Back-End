@@ -29,6 +29,7 @@ public class User extends Auditable
 
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
@@ -37,6 +38,11 @@ public class User extends Auditable
                orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<UserContact> userContacts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    private List<SavedContacts> savedContacts = new ArrayList<>();
+
 
     public User()
     {
@@ -104,6 +110,16 @@ public class User extends Auditable
         return userContacts;
     }
 
+    public List<SavedContacts> getSavedContacts()
+    {
+        return savedContacts;
+    }
+
+    public void setSavedContacts(List<SavedContacts> savedContacts)
+    {
+        this.savedContacts = savedContacts;
+    }
+
     public void setUserContacts(List<UserContact> userContacts)
     {
         this.userContacts = userContacts;
@@ -127,6 +143,13 @@ public class User extends Auditable
     @Override
     public String toString()
     {
-        return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", userRoles=" + userroles + ", useremails=" + userContacts + '}';
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", userroles=" + userroles +
+                ", userContacts=" + userContacts +
+                ", savedContacts=" + savedContacts +
+                '}';
     }
 }

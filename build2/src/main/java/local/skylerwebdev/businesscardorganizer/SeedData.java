@@ -1,10 +1,7 @@
 package local.skylerwebdev.businesscardorganizer;
 
 import local.skylerwebdev.businesscardorganizer.models.*;
-import local.skylerwebdev.businesscardorganizer.services.ContactTypeService;
-import local.skylerwebdev.businesscardorganizer.services.RoleService;
-import local.skylerwebdev.businesscardorganizer.services.UserContactService;
-import local.skylerwebdev.businesscardorganizer.services.UserService;
+import local.skylerwebdev.businesscardorganizer.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,6 +21,11 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     ContactTypeService userContactTypeService;
+
+    @Autowired
+    UserContactService userContactService;
+    @Autowired
+    SavedContactService savedContactService;
 
     @Override
     public void run(String[] args) throws Exception
@@ -50,13 +52,17 @@ public class SeedData implements CommandLineRunner
         admins.add(new UserRoles(new User(), r2));
         admins.add(new UserRoles(new User(), r3));
         User u1 = new User("admin", "password", admins);
+
         u1.getUserContacts()
           .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555",u1 ,ct1));
         u1.getUserContacts()
           .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct2));
-
+        u1.getSavedContacts().add(new SavedContacts(u1,12));
+        u1.getSavedContacts().add(new SavedContacts(u1,13));
+        u1.getSavedContacts().add(new SavedContacts(u1,14));
         userService.save(u1);
 
+//        userService.addSavedContact(u1, );
         // data, user
         ArrayList<UserRoles> datas = new ArrayList<>();
         datas.add(new UserRoles(new User(), r3));
@@ -87,5 +93,9 @@ public class SeedData implements CommandLineRunner
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane", "password", users);
         userService.save(u5);
+
+//        User u10 = userService.findUserById(10);
+//        SavedContacts s1 = new SavedContacts(u10, 8);
+//        savedContactService.save(s1);
     }
 }

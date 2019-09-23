@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,13 +35,18 @@ public class UserContact extends Auditable implements Serializable
     @ManyToOne
     @JoinColumn(name = "userid",
             nullable = false)
-    @JsonIgnoreProperties("useremails")
+    @JsonIgnoreProperties("userContacts")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "contacttypeid")
     @JsonIgnoreProperties("usercontacts")
     private UserContactType usercontacttype;
+
+//    @OneToMany(mappedBy = "userContact", cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("userContact")
+//    private List<SavedContacts> savedcontacts = new ArrayList<>();
+
 
     public UserContact()
     {
@@ -141,6 +148,19 @@ public class UserContact extends Auditable implements Serializable
     {
         return usercontacttype;
     }
+
+//    public List<SavedContacts> getSavedcontacts()
+//    {
+//        return savedcontacts;
+//    }
+//
+//    public void setSavedcontacts(List<SavedContacts> savedcontacts)
+//    {
+//        this.savedcontacts = savedcontacts;
+//    }
+
+
+
 
     public void setUsercontacttype(UserContactType usercontacttype)
     {

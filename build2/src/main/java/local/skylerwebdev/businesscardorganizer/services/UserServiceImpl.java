@@ -2,10 +2,7 @@ package local.skylerwebdev.businesscardorganizer.services;
 
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceFoundException;
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceNotFoundException;
-import local.skylerwebdev.businesscardorganizer.models.Role;
-import local.skylerwebdev.businesscardorganizer.models.User;
-import local.skylerwebdev.businesscardorganizer.models.UserRoles;
-import local.skylerwebdev.businesscardorganizer.models.UserContact;
+import local.skylerwebdev.businesscardorganizer.models.*;
 import local.skylerwebdev.businesscardorganizer.repository.RoleRepository;
 import local.skylerwebdev.businesscardorganizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.service.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     @Autowired
     private RoleRepository rolerepos;
+
 
     @Transactional
     @Override
@@ -107,6 +106,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
         {
             newUser.getUserContacts()
                    .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
+        }
+
+        for (SavedContacts s : user.getSavedContacts())
+        {
+            newUser.getSavedContacts().add(new SavedContacts(newUser, s.getContactid()));
         }
 
         return userrepos.save(newUser);
@@ -193,4 +197,6 @@ public class UserServiceImpl implements UserDetailsService, UserService
             throw new ResourceFoundException("Role and User Combination Already Exists");
         }
     }
+
+
 }
