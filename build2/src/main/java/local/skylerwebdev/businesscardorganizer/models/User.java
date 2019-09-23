@@ -24,14 +24,6 @@ public class User extends Auditable
     private String username;
 
     @Column(nullable = false)
-    private String fname;
-
-    @Column(nullable = false)
-    private String lname;
-
-    private String busname;
-
-    @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
@@ -40,32 +32,18 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     @JsonIgnoreProperties("user")
-    private List<UserContact> usercontacts = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true)
-//    @JsonIgnoreProperties("user")
-//    private List<UserPhone> userphones = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonIgnoreProperties("user")
-//    private List<UserAddress> useraddresses = new ArrayList<>();
+    private List<UserContact> userContacts = new ArrayList<>();
 
     public User()
     {
     }
 
-    public User(String username, String fname, String lname, String busname, String password, List<UserRoles> userRoles)
+    public User(String username, String password, List<UserRoles> userRoles)
     {
-        this.fname = fname;
-        this.lname = lname;
-        this.busname = busname;
         setUsername(username);
         setPassword(password);
         for (UserRoles ur : userRoles)
@@ -85,36 +63,6 @@ public class User extends Auditable
         this.userid = userid;
     }
 
-    public String getFname()
-    {
-        return fname;
-    }
-
-    public void setFname(String fname)
-    {
-        this.fname = fname;
-    }
-
-    public String getLname()
-    {
-        return lname;
-    }
-
-    public void setLname(String lname)
-    {
-        this.lname = lname;
-    }
-
-    public String getBusname()
-    {
-        return busname;
-    }
-
-    public void setBusname(String busname)
-    {
-        this.busname = busname;
-    }
-
     public String getUsername()
     {
         return username;
@@ -123,16 +71,6 @@ public class User extends Auditable
     public void setUsername(String username)
     {
         this.username = username;
-    }
-
-    public List<UserContact> getUsercontacts(UserContact userContact)
-    {
-        return usercontacts;
-    }
-
-    public void setUsercontacts(List<UserContact> usercontacts)
-    {
-        this.usercontacts = usercontacts;
     }
 
     public String getPassword()
@@ -161,7 +99,15 @@ public class User extends Auditable
         this.userroles = userroles;
     }
 
+    public List<UserContact> getUserContacts()
+    {
+        return userContacts;
+    }
 
+    public void setUserContacts(List<UserContact> userContacts)
+    {
+        this.userContacts = userContacts;
+    }
 
     public List<SimpleGrantedAuthority> getAuthority()
     {
@@ -181,15 +127,6 @@ public class User extends Auditable
     @Override
     public String toString()
     {
-        return "User{" +
-                "userid=" + userid +
-                ", username='" + username + '\'' +
-                ", fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
-                ", busname='" + busname + '\'' +
-                ", password='" + password + '\'' +
-                ", userroles=" + userroles +
-                ", usercontacts=" + usercontacts +
-                '}';
+        return "User{" + "userid=" + userid + ", username='" + username + '\'' + ", password='" + password + '\'' + ", userRoles=" + userroles + ", useremails=" + userContacts + '}';
     }
 }

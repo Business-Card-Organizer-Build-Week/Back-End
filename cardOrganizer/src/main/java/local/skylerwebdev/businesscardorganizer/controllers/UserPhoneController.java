@@ -1,7 +1,7 @@
 //package local.skylerwebdev.businesscardorganizer.controllers;
 //
-//import local.skylerwebdev.businesscardorganizer.models.Useremail;
-//import local.skylerwebdev.businesscardorganizer.services.UseremailService;
+//import local.skylerwebdev.businesscardorganizer.models.UserPhone;
+//import local.skylerwebdev.businesscardorganizer.services.UserPhoneService;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -18,36 +18,36 @@
 //import java.util.List;
 //
 //@RestController
-//@RequestMapping("/useremails")
-//public class UseremailController
+//@RequestMapping("/userphones")
+//public class UserPhoneController
 //{
-//    private static final Logger logger = LoggerFactory.getLogger(UseremailController.class);
+//    private static final Logger logger = LoggerFactory.getLogger(UserPhoneController.class);
 //
 //    @Autowired
-//    UseremailService useremailService;
+//    UserPhoneService userphoneService;
 //
-//    @GetMapping(value = "/useremails",
+//    @GetMapping(value = "/userphones",
 //                produces = {"application/json"})
-//    public ResponseEntity<?> listAllUseremails(HttpServletRequest request)
+//    public ResponseEntity<?> listAllUserPhones(HttpServletRequest request)
 //    {
 //        logger.trace(request.getMethod()
 //                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
 //
-//        List<Useremail> allEmails = useremailService.findAll();
+//        List<UserPhone> allEmails = userphoneService.findAll();
 //        return new ResponseEntity<>(allEmails, HttpStatus.OK);
 //    }
 //
-///
-//    @GetMapping(value = "/useremail/{useremailId}",
+//
+//    @GetMapping(value = "/userphone/{userphoneId}",
 //                produces = {"application/json"})
 //    public ResponseEntity<?> getUserEmailById(HttpServletRequest request,
 //                                              @PathVariable
-//                                              Long useremailId)
+//                                              Long userphoneId)
 //    {
 //        logger.trace(request.getMethod()
 //                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
 //
-//        Useremail ue = useremailService.findUseremailById(useremailId);
+//        UserPhone ue = userphoneService.findUserPhoneById(userphoneId);
 //        return new ResponseEntity<>(ue, HttpStatus.OK);
 //    }
 //
@@ -61,42 +61,42 @@
 //        logger.trace(request.getMethod()
 //                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
 //
-//        List<Useremail> theUseremails = useremailService.findByUserName(userName);
-//        return new ResponseEntity<>(theUseremails, HttpStatus.OK);
+//        List<UserPhone> theUserPhones = userphoneService.findByUserName(userName);
+//        return new ResponseEntity<>(theUserPhones, HttpStatus.OK);
 //    }
 //
 //
-//    @PostMapping(value = "/useremail")
+//    @PostMapping(value = "/userphone")
 //    public ResponseEntity<?> addNewEmail(HttpServletRequest request, @Valid
 //    @RequestBody
-//            Useremail newUseremail) throws URISyntaxException
+//            UserPhone newUserPhone) throws URISyntaxException
 //    {
 //        logger.trace(request.getMethod()
 //                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
 //
-//        newUseremail = useremailService.save(newUseremail, request.isUserInRole("ADMIN"));
+//        newUserPhone = userphoneService.save(newUserPhone, request.isUserInRole("ADMIN"));
 //
 //        // set the location header for the newly created resource
 //        HttpHeaders responseHeaders = new HttpHeaders();
-//        URI newUseremailURI = ServletUriComponentsBuilder.fromCurrentRequest()
-//                                                     .path("/{useremailid}")
-//                                                     .buildAndExpand(newUseremail.getUseremailid())
+//        URI newUserPhoneURI = ServletUriComponentsBuilder.fromCurrentRequest()
+//                                                     .path("/{userphoneid}")
+//                                                     .buildAndExpand(newUserPhone.getUserphoneid())
 //                                                     .toUri();
-//        responseHeaders.setLocation(newUseremailURI);
+//        responseHeaders.setLocation(newUserPhoneURI);
 //
 //        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
 //    }
 //
 //
-//    @DeleteMapping("/useremail/{useremailid}")
+//    @DeleteMapping("/userphone/{userphoneid}")
 //    public ResponseEntity<?> deleteEmailById(HttpServletRequest request,
 //                                             @PathVariable
-//                                                     long useremailid)
+//                                                     long userphoneid)
 //    {
 //        logger.trace(request.getMethod()
 //                            .toUpperCase() + " " + request.getRequestURI() + " accessed");
 //
-//        useremailService.delete(useremailid, request.isUserInRole("ADMIN"));
+//        userphoneService.delete(userphoneid, request.isUserInRole("ADMIN"));
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
 //}

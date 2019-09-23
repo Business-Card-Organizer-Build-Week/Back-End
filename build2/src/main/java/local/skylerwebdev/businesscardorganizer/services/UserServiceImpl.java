@@ -2,10 +2,10 @@ package local.skylerwebdev.businesscardorganizer.services;
 
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceFoundException;
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceNotFoundException;
-import local.skylerwebdev.businesscardorganizer.models.UserContact;
 import local.skylerwebdev.businesscardorganizer.models.Role;
 import local.skylerwebdev.businesscardorganizer.models.User;
 import local.skylerwebdev.businesscardorganizer.models.UserRoles;
+import local.skylerwebdev.businesscardorganizer.models.UserContact;
 import local.skylerwebdev.businesscardorganizer.repository.RoleRepository;
 import local.skylerwebdev.businesscardorganizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,9 +90,6 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
         User newUser = new User();
         newUser.setUsername(user.getUsername());
-        newUser.setFname(user.getFname());
-        newUser.setLname(user.getLname());
-        newUser.setBusname(user.getBusname());
         newUser.setPasswordNoEncrypt(user.getPassword());
 
         ArrayList<UserRoles> newRoles = new ArrayList<>();
@@ -105,25 +102,12 @@ public class UserServiceImpl implements UserDetailsService, UserService
             newRoles.add(new UserRoles(newUser, ur.getRole()));
         }
         newUser.setUserroles(newRoles);
-        for (UserContact c : user.getUsercontacts());
+
+        for (UserContact ue : user.getUserContacts())
         {
-            newU().
+            newUser.getUserContacts()
+                   .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
         }
-//        for (Useremail ue : user.getUseremails())
-//        {
-//            newUser.getUseremails()
-//                   .add(new Useremail(newUser, ue.getUseremail(), ue.getEmailcontacttype()));
-//        }
-//
-//        for(UserPhone up : user.getUserphones())
-//        {
-//            newUser.getUserphones().add(new UserPhone(up.getUserphone(), newUser, up.getPhonecontacttype()));
-//        }
-//
-//        for (UserAddress ua : user.getUseraddresses())
-//        {
-//            newUser.getUseraddresses().add(new UserAddress(ua.getAddress1(), ua.getAddress2(), ua.getCity(), ua.getState(), ua.getZip(), newUser, ua.getAddresscontacttype()));
-//        }
 
         return userrepos.save(newUser);
     }
@@ -144,21 +128,6 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 currentUser.setUsername(user.getUsername());
             }
 
-            if (user.getFname() != null)
-            {
-                currentUser.setFname(user.getFname());
-            }
-
-            if (user.getLname() != null)
-            {
-                currentUser.setLname(user.getLname());
-            }
-
-            if (user.getBusname() != null)
-            {
-                currentUser.setBusname(user.getBusname());
-            }
-
             if (user.getPassword() != null)
             {
                 currentUser.setPasswordNoEncrypt(user.getPassword());
@@ -170,29 +139,13 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 throw new ResourceFoundException("User Roles are not updated through User");
             }
 
-            if (user.getUseremails()
+            if (user.getUserContacts()
                     .size() > 0)
             {
-                for (Useremail ue : user.getUseremails())
+                for (UserContact ue : user.getUserContacts())
                 {
-                    currentUser.getUseremails()
-                               .add(new Useremail(currentUser, ue.getUseremail(), ue.getEmailcontacttype()));
-                }
-            }
-
-            if(user.getUserphones().size() > 0)
-            {
-                for(UserPhone up : user.getUserphones())
-                {
-                    currentUser.getUserphones().add(new UserPhone(up.getUserphone(), currentUser, up.getPhonecontacttype()));
-                }
-            }
-
-            if (user.getUseraddresses().size() > 0)
-            {
-                for (UserAddress ua : user.getUseraddresses())
-                {
-                    currentUser.getUseraddresses().add(new UserAddress(ua.getAddress1(), ua.getAddress2(), ua.getCity(), ua.getState(), ua.getZip(), currentUser, ua.getAddresscontacttype()));
+                    currentUser.getUserContacts()
+                               .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
                 }
             }
 
