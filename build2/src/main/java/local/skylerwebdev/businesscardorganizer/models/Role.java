@@ -1,6 +1,7 @@
 package local.skylerwebdev.businesscardorganizer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,10 +11,12 @@ import java.util.List;
 @Table(name = "roles")
 public class Role extends Auditable
 {
+    @ApiModelProperty(name = "roleid", value = "Primary Key for Role Auto Generated", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roleid;
 
+    @ApiModelProperty(name = "name", value = "Role Name", required = true, example = "admin")
     @Column(nullable = false,
             unique = true)
     private String name;

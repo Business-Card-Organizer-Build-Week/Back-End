@@ -1,5 +1,6 @@
 package local.skylerwebdev.businesscardorganizer.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,22 +22,28 @@ public class User extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    @ApiModelProperty(name = "username", value = "Username for login", required = true, example = "username")
     @Column(nullable = false,
             unique = true)
     private String username;
 
+    @ApiModelProperty(name = "fname", value = "User First Name", required = false, example = "John")
     @Column(nullable =true)
     private String fname;
 
+    @ApiModelProperty(name = "lname", value = "User Last Name", required = false, example = "Smith")
     @Column(nullable =true)
     private String lname;
 
+    @ApiModelProperty(name = "busname", value = "User Business Name", required = false, example = "Business Name")
     @Column(nullable =true)
     private String busname;
 
+    @ApiModelProperty(name = "title", value = "User Title/Role", required = false, example = "Manager")
     @Column(nullable = true)
     private String title;
 
+    @ApiModelProperty(name = "password", value = "User Password", required = true, example = "EntErYoUrPasswrdHere")
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -183,6 +190,7 @@ public class User extends Auditable
         this.userContacts = userContacts;
     }
 
+    @JsonIgnore
     public List<SimpleGrantedAuthority> getAuthority()
     {
         List<SimpleGrantedAuthority> rtnList = new ArrayList<>();

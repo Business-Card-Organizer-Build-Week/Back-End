@@ -233,6 +233,14 @@ public class UserServiceImpl implements UserDetailsService, UserService
     @Override
     public void addSavedContact(long userid, int contactid)
     {
-
+        userrepos.findById(userid)
+                .orElseThrow(() -> new ResourceNotFoundException("User id " + userid + " not found!"));
+        if (savedContactsRepository.checkSavedContactCombo(userid,contactid).getCount() <= 0)
+        {
+            savedContactsRepository.insertSavedContact(userid, contactid);
+        }else
+        {
+            throw new ResourceNotFoundException("Combo Exists");
+        }
     }
 }

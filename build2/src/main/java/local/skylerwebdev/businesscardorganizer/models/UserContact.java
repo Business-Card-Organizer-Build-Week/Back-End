@@ -2,6 +2,7 @@ package local.skylerwebdev.businesscardorganizer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,24 +16,29 @@ import java.util.Objects;
 //@IdClass(UserContact.class)
 public class UserContact extends Auditable implements Serializable
 {
+    @ApiModelProperty(name = "contactid", value = "Primary Key for UserContact Auto Generated", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long contactid;
 
-
-
+    @ApiModelProperty(name = "useremail", value = "Contact Email Address", required = true, example = "test@test.com")
     @Column(nullable = false)
     @Email
     private String useremail;
 
+    @ApiModelProperty(name = "userphone", value = "Contact Phone Number", required = false, example = "555-555-5555")
     private String userphone;
 
+    @ApiModelProperty(name = "useraddress", value = "Contact Address", required = false, example = "123 Main Street")
     private String useraddress;
 
+    @ApiModelProperty(name = "usercity", value = "Contact City", required = false, example = "City")
     private String usercity;
 
+    @ApiModelProperty(name = "userstate", value = "Contact State", required = false, example = "ST")
     private String userState;
 
+    @ApiModelProperty(name = "userzip", value = "Contact Zip", required = false, example = "55555")
     private String userzip;
 
     @ManyToOne

@@ -2,6 +2,7 @@ package local.skylerwebdev.businesscardorganizer.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "savedcontacts")
 @IdClass(SavedContacts.class)
-public class SavedContacts extends Auditable implements Serializable
+public class SavedContacts implements Serializable
 {
 
     @Id
@@ -18,6 +19,8 @@ public class SavedContacts extends Auditable implements Serializable
     @JoinColumn(name = "userid")
     @JsonIgnoreProperties("savedContacts")
     private User user;
+
+    @ApiModelProperty(name = "contactid", value = "Contact ID to Save", required = true, example = "1")
     @Id
     private int contactid;
 

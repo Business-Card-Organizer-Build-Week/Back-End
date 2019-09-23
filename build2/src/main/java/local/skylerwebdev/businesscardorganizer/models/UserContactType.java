@@ -1,6 +1,7 @@
 package local.skylerwebdev.businesscardorganizer.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.xml.catalog.Catalog;
@@ -11,10 +12,13 @@ import java.util.List;
 @Table(name = "contacttypes")
 public class UserContactType
 {
+
+    @ApiModelProperty(name = "contacttypeid", value = "Primary Key for Contact Type Auto Generated", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long contacttypeid;
 
+    @ApiModelProperty(name = "contacttype", value = "Contact Type", required = true, example = "Business")
     @Column(nullable = false, unique = true)
     private String contacttype;
 
