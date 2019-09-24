@@ -74,4 +74,18 @@ public class UserContactController
         userContactService.delete(usercontactid, request.isUserInRole("ADMIN"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PutMapping(value = "/{contactid}")
+    public ResponseEntity<?> updateContact(HttpServletRequest request,
+                                        @RequestBody
+                                                UserContact userContact,
+                                        @PathVariable
+                                                long contactid)
+    {
+        logger.trace(request.getMethod()
+                .toUpperCase() + " " + request.getRequestURI() + " accessed");
+        System.out.println(contactid);
+        userContactService.update(userContact, contactid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

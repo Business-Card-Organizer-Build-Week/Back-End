@@ -1,13 +1,17 @@
 package local.skylerwebdev.businesscardorganizer.services;
 
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceNotFoundException;
+import local.skylerwebdev.businesscardorganizer.models.User;
 import local.skylerwebdev.businesscardorganizer.models.UserContact;
 import local.skylerwebdev.businesscardorganizer.models.UserContactType;
 import local.skylerwebdev.businesscardorganizer.repository.UserContactRepository;
+import local.skylerwebdev.businesscardorganizer.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,9 @@ public class UserContactServiceImpl implements UserContactService
 {
     @Autowired
     private UserContactRepository usercontactrepos;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<UserContact> findAll()
@@ -61,29 +68,71 @@ public class UserContactServiceImpl implements UserContactService
         }
     }
 
+    @Transactional
     @Override
-    public UserContact save(UserContact userContact, boolean isAdmin)
+    public UserContact update(UserContact userContact, long contactid)
     {
-        Authentication authentication = SecurityContextHolder.getContext()
-                                                             .getAuthentication();
 
-        if (userContact.getUser()
-                     .getUsername()
-                     .equalsIgnoreCase(authentication.getName()) || isAdmin)
-        {
-            UserContact newUserContact = new UserContact();
-            newUserContact.setUseremail(userContact.getUseremail());
-            newUserContact.setUserphone(userContact.getUserphone());
-            newUserContact.setUseraddress(userContact.getUseraddress());
-            newUserContact.setUsercity(userContact.getUsercity());
-            newUserContact.setUserState(userContact.getUserState());
-            newUserContact.setUserzip(userContact.getUserzip());
-            newUserContact.setUsercontacttype(userContact.getUsercontacttype());
-            return usercontactrepos.save(newUserContact);
+        UserContact currentContact = usercontactrepos.findById(contactid).orElseThrow(() -> new ResourceNotFoundException("Not Found"));
 
-        } else
+        if (usercontactrepos.findById(contactid)
+                .isPresent())
         {
-            throw new ResourceNotFoundException((authentication.getName() + "not authorized to make change"));
+            Authentication authentication = SecurityContextHolder.getContext()
+                    .getAuthentication();
+            if (usercontactrepos.findById(contactid)
+                    .get()
+                    .getUser()
+                    .getUsername()
+                    .equalsIgnoreCase(authentication.getName()))
+            {
+                long contactTypeId = currentContact.getUsercontacttype().getContacttypeid();
+
+//                if (contactid == currentContact.getContactid())
+//                {
+                    if (userContact.getUseremail() != null)
+                    {
+                        currentContact.setUseremail(userContact.getUseremail());
+                    }
+                    if (userContact.getUserphone() != null)
+                    {
+                        currentContact.setUserphone(userContact.getUserphone());
+                    }
+                    if (userContact.getUseraddress() != null)
+                    {
+                        currentContact.setUseraddress(userContact.getUseraddress());
+                    }
+                    if (userContact.getUsercity() != null)
+                    {
+                        currentContact.setUsercity(userContact.getUsercity());
+                    }
+                    if (userContact.getUserState() != null)
+                    {
+                        currentContact.setUserState(userContact.getUserState());
+                    }
+                    if (userContact.getUserzip() != null)
+                    {
+                        currentContact.setUserzip(userContact.getUserzip());
+                    }
+                    if (userContact.getUsercontacttype().getContacttypeid() != contactTypeId)
+                    {
+                        currentContact.setUsercontacttype(userContact.getUsercontacttype());
+                    }
+                    return usercontactrepos.save(currentContact);
+
+                } else
+                {
+                    throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
+                }
+            }
+//        else
+//            {
+//                throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
+//            }
+         else
+        {
+            throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
         }
+
     }
 }

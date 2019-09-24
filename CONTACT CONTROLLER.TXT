@@ -31,3 +31,27 @@ GET 127.0.0.1:2019/api/contact/ID
 DELETE 127.0.0.1:2019/api/contact/delete/{usercontactid}
     DELETES CONTACT BASED ON ID
     WORKS
+
+PUT 127.0.0.1:2019/api/contact/{contactid}
+    UPDATES CONTACT BASED ON CONTACT ID
+    WORKS
+    ONLY WORKS WHEN LOGGED IN
+    UPDATE ONE OR ALL OF THE FIELDS
+                {
+                "useremail": "test@test.com",
+                "userphone": "5555555555",
+                "useraddress": "TestAddress",
+                "usercity": "Test City",
+                "userState": "ST",
+                "userzip": "55555",
+                "usercontacttype": {
+                    "contacttypeid": 5
+                }
+            }
+
+    UPDATE CONTACT TYPE
+     { 
+       "usercontacttype": {
+       "contacttypeid": 4
+        }
+     }

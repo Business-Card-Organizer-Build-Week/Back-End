@@ -1,5 +1,6 @@
 package local.skylerwebdev.businesscardorganizer.services;
 
+import local.skylerwebdev.businesscardorganizer.models.User;
 import local.skylerwebdev.businesscardorganizer.models.UserContact;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface UserContactService
 
     void delete(long id, boolean isAdmin);
 
-    UserContact save(UserContact userContact, boolean isAdmin);
+//    UserContact save(UserContact userContact, boolean isAdmin);
+
+    UserContact update(UserContact userContact, long contactid);
 }
