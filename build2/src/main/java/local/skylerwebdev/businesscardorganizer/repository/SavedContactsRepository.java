@@ -18,4 +18,9 @@ public interface SavedContactsRepository extends CrudRepository<SavedContacts, L
     @Query(value = "INSERT INTO savedcontacts(userid, contactid) VALUES (:userid, :contactid)",
             nativeQuery = true)
     void insertSavedContact(long userid, long contactid);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM SavedContacts WHERE userid = :userid AND contactid = :contactid")
+    void deleteSavedContacts(long userid, long contactid);
 }

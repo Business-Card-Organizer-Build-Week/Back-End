@@ -1,5 +1,5 @@
 Notes
-Get 127.0.0.1:2019/api/users/all
+Get https://cardorganizer.herokuapp.com/api/users/all
     RETURN ALL USERS WHEN LOGGED IN AS ADMIN
     WORKS
     RETURNS FULL JSON OF ALL USERS
@@ -51,17 +51,17 @@ Get 127.0.0.1:2019/api/users/all
         ]
     },
 
-Get 127.0.0.1:2019/api/users/ID
+Get https://cardorganizer.herokuapp.com/api/users/ID
     RETURN USER BY ID WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
     WORKS
     RETURNS FULL JSON OF USER
 
-Get 127.0.0.1:2019/api/users/name/USERNAME
+Get https://cardorganizer.herokuapp.com/api/users/name/USERNAME
     RETURNS USER BY USERNAME WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
     WORKS
     RETURNS FULL JSON OF USER
 
-Get 127.0.0.1:2019/api/users/getusername
+Get https://cardorganizer.herokuapp.com/api/users/getusername
     RETURNS USER INFORMATION
     WORKS
     {
@@ -78,9 +78,10 @@ Get 127.0.0.1:2019/api/users/getusername
     "enabled": true
 }
 
-POST 127.0.0.1:2019/api/users/newuser
+POST https://cardorganizer.herokuapp.com/api/users/newuser
     CREATES NEW USER WHEN LOGGED IN AS ADMIN
     WORKS
+    CREATE A NEW USER WITHOUT CONTACT INFO
  {
         "username": "bill",
         "password": "testpassword",
@@ -89,13 +90,49 @@ POST 127.0.0.1:2019/api/users/newuser
         "busname": "TestBusName",
         "title": "Title"
 }
-
-PUT 127.0.0.1:2019/api/users/ID
+    CREATE A NEW USER WITH CONTACT INFO
+        *** REFERENCE CONTACT TYPES 4 = BUSINESS, 5 = HOME, 6 = OTHER ***
+ {
+        "username": "bill",
+        "password": "testpassword",
+        "fname": "John",
+        "lname": "Smith",
+        "busname": "TestBusName",
+        "title": "Title",
+        "userContacts": [
+            {
+            "useremail": "testAddContact@test.com",
+            "userphone": "5555555555",
+            "useraddress": "TestAddress",
+            "usercity": "Test City",
+            "userState": "ST",
+            "userzip": "55555",
+            "usercontacttype": {
+                "contacttypeid": 4 
+                               }
+            }
+                        ]
+}
+PUT https://cardorganizer.herokuapp.com/api/users/user/ID
     UPDATES A USER BASED ON LOGGED IN USER
     USED TO ADD A CONTACT
     WORKS
-           
-   {"userContacts": [
+
+    TO CHANGE PASSWORD
+    {"password": "NewPassword"}
+
+    TO UPDATE USERS -- PASS ONE OR MORE OF THE FIELDS BELOW TO UPDATE
+    { 
+        "fname": "John",
+        "lname": "Smith",
+        "busname": "TestBusName",
+        "title": "Title"
+    }
+
+   TO ADD A USER CONTACT
+        *** REFERENCE CONTACT TYPES 4 = BUSINESS, 5 = HOME, 6 = OTHER ***
+   {
+    "userContacts": [
         {
             "useremail": "testAddContact@test.com",
             "userphone": "5555555555",
@@ -104,22 +141,26 @@ PUT 127.0.0.1:2019/api/users/ID
             "userState": "ST",
             "userzip": "55555",
             "usercontacttype": {
-                "contacttypeid": 4
-             }
+                "contacttypeid": 4 
+                               }
         }
-     ]
+                    ]
    }
 
-DELETE 127.0.0.1:2019/api/users/delete/ID
+DELETE https://cardorganizer.herokuapp.com/api/users/delete/ID
     DELETES USER WHEN LOGGED IN AS ADMIN
     WORKS
 
-POST 127.0.0.1:2019/api/users/USERID/role/ROLEID
+POST https://cardorganizer.herokuapp.com/api/users/USERID/role/ROLEID
     ADDS A USER ROLE WHEN LOGGED IN AS ADMIN
     WORKS
 
 
-POST 127.0.0.1:2019/api/users/USERID/contact/CONTACTID
+POST https://cardorganizer.herokuapp.com/api/users/USERID/contact/CONTACTID
     ADD SAVEDCONTACT TO CURRENTLY LOGGED IN USER
+    WORKS
 
+DELETE https://cardorganizer.herokuapp.com/api/users/USERID/contact/CONTACTID
+    DELETES SAVED CONTACT
+    WORKS
 

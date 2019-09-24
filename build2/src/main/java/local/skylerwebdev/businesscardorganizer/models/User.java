@@ -25,6 +25,7 @@ public class User extends Auditable
     @ApiModelProperty(name = "username", value = "Username for login", required = true, example = "username")
     @Column(nullable = false,
             unique = true)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String username;
 
     @ApiModelProperty(name = "fname", value = "User First Name", required = false, example = "John")

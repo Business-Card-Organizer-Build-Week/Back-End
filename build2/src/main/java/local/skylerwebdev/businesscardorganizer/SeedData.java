@@ -24,8 +24,8 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     UserContactService userContactService;
-    @Autowired
-    SavedContactService savedContactService;
+//    @Autowired
+//    SavedContactService savedContactService;
 
     @Override
     public void run(String[] args) throws Exception

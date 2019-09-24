@@ -14,6 +14,9 @@ import java.util.Objects;
 public class SavedContacts implements Serializable
 {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private long savedcontactid;
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -22,20 +25,27 @@ public class SavedContacts implements Serializable
 
     @ApiModelProperty(name = "contactid", value = "Contact ID to Save", required = true, example = "1")
     @Id
-    private int contactid;
+    private long contactid;
 
     public SavedContacts()
     {
     }
 
-    public SavedContacts(User user, int contactid)
+    public SavedContacts(User user, long contactid)
     {
         this.user = user;
         this.contactid = contactid;
     }
 
-
-
+//    public long getSavedcontactid()
+//    {
+//        return savedcontactid;
+//    }
+//
+//    public void setSavedcontactid(long savedcontactid)
+//    {
+//        this.savedcontactid = savedcontactid;
+//    }
 
     public User getUser()
     {
@@ -47,7 +57,7 @@ public class SavedContacts implements Serializable
         this.user = user;
     }
 
-    public int getContactid()
+    public long getContactid()
     {
         return contactid;
     }
@@ -77,8 +87,7 @@ public class SavedContacts implements Serializable
     public String toString()
     {
         return "SavedContacts{" +
-
-                ", user=" + user +
+                "user=" + user +
                 ", contactid=" + contactid +
                 '}';
     }

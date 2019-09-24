@@ -272,4 +272,20 @@ public class UserServiceImpl implements UserDetailsService, UserService
             throw new ResourceNotFoundException("Combo Exists");
         }
     }
+
+    @Override
+    public void deleteSavedContact(long userid, long contactid)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+        if (userid == currentUser.getUserid())
+        {
+        savedContactsRepository.deleteSavedContacts(userid, contactid);
+        }else
+        {
+            throw new ResourceNotFoundException("Current User Not Logged In");
+
+        }
+    }
 }

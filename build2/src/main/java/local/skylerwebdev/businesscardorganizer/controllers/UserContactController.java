@@ -3,6 +3,7 @@ package local.skylerwebdev.businesscardorganizer.controllers;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import local.skylerwebdev.businesscardorganizer.models.User;
 import local.skylerwebdev.businesscardorganizer.models.UserContact;
 import local.skylerwebdev.businesscardorganizer.services.UserContactService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -21,7 +23,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usercontact")
+@RequestMapping("/contact")
 public class UserContactController
 {
     private static final Logger logger = LoggerFactory.getLogger(UserContactController.class);
@@ -29,6 +31,8 @@ public class UserContactController
     @Autowired
     UserContactService userContactService;
 
+    @ApiOperation(value = "LISTS ALL CONTACTS ***LOGGED IN AS ADMIN***", response = UserContact.class, responseContainer = "List")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/all",
                 produces = {"application/json"})
     public ResponseEntity<?> listAllUserContacts(HttpServletRequest request)

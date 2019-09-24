@@ -94,7 +94,7 @@ public class UserController
             @ApiResponse(code = 404, message = "Not a valid method for endpoint", response = void.class),
             @ApiResponse(code = 500, message = "ERROR Creating User", response = ErrorDetail.class)
     })
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @PostMapping(value = "/newuser",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -207,5 +207,19 @@ public class UserController
         userService.addSavedContact(userid, contactid, request.isUserInRole("ADMIN"));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @DeleteMapping("/{userid}/contact/{contactid}")
+    public ResponseEntity<?> deleteUserContactById(HttpServletRequest request,
+                                                 @PathVariable
+                                                         long userid,
+                                                 @PathVariable
+                                                         long contactid)
+    {
+        logger.trace(request.getMethod()
+                .toUpperCase() + " " + request.getRequestURI() + " accessed");
+
+        userService.deleteSavedContact(userid, contactid);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

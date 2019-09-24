@@ -27,4 +27,6 @@ public interface UserService
 
     void addSavedContact(long userid, int contactid, boolean isAdmin);
 
+    void deleteSavedContact(long userid, long contactid);
+
 }
