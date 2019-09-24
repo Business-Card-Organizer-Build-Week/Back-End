@@ -118,7 +118,8 @@ public class UserController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-
+    @ApiOperation(value = "Updates A user Based on ID", response = User.class)
+    @ApiResponse(code = 200, message = "User Updated Successfully", response = void.class)
     @PutMapping(value = "/user/{id}")
     public ResponseEntity<?> updateUser(HttpServletRequest request,
                                         @RequestBody
@@ -135,7 +136,7 @@ public class UserController
 
     @ApiOperation(value = "Deletes User Based on Id",  response = void.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Student Deleted Successfully", response = void.class),
+            @ApiResponse(code = 200, message = "User Deleted Successfully", response = void.class),
     })
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/delete/{id}")
@@ -208,6 +209,10 @@ public class UserController
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @ApiOperation(value = "Deletes Saved User Contact based on id on Id",  response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Saved Contact Deleted Successfully", response = void.class),
+    })
     @DeleteMapping("/{userid}/contact/{contactid}")
     public ResponseEntity<?> deleteUserContactById(HttpServletRequest request,
                                                  @PathVariable

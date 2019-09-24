@@ -1,5 +1,9 @@
 package local.skylerwebdev.businesscardorganizer.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import local.skylerwebdev.businesscardorganizer.models.ErrorDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,11 @@ public class LogoutController
     @Autowired
     private TokenStore tokenStore;
 
-    @RequestMapping(value = "/oauth/revoke-token",
+    @ApiOperation(value = "REVOKES TOKEN", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Logout Successful"),
+            @ApiResponse(code = 401, message = "Already Logged Out")})
+    @RequestMapping(value = "/logout",
                     method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public void logout(HttpServletRequest request)

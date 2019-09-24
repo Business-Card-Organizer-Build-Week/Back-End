@@ -1,5 +1,9 @@
 package local.skylerwebdev.businesscardorganizer.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import local.skylerwebdev.businesscardorganizer.models.ErrorDetail;
 import local.skylerwebdev.businesscardorganizer.models.User;
 import local.skylerwebdev.businesscardorganizer.models.UserRoles;
 import local.skylerwebdev.businesscardorganizer.services.RoleService;
@@ -36,7 +40,11 @@ public class OpenController
 
     @Autowired
     private RoleService roleService;
-
+    @ApiOperation(value = "Creates a new User.", notes = "The newly created userid will be sent in the response header adds the user role to the new user. Has to be sent username, password, fname, lname, and busname", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Restaurant Created Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error creating restaurant", response = ErrorDetail.class)
+    } )
     @PostMapping(value = "/newuser",
                  consumes = {"application/json"},
                  produces = {"application/json"})
@@ -63,9 +71,9 @@ public class OpenController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @GetMapping("favicon.ico")
-    void returnNoFavicon()
-    {
-        logger.trace("favicon.ico endpoint accessed!");
-    }
+//    @GetMapping("favicon.ico")
+//    void returnNoFavicon()
+//    {
+//        logger.trace("favicon.ico endpoint accessed!");
+//    }
 }
