@@ -10,8 +10,6 @@ public interface UserContactService
 
     UserContact findUserContactById(long contactid);
 
-    List<UserContact> findByUserName(String username);
-
     void delete(long id, boolean isAdmin);
 
     UserContact save(UserContact userContact, boolean isAdmin);

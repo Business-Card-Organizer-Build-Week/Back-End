@@ -35,11 +35,6 @@ public class UserContactServiceImpl implements UserContactService
                              .orElseThrow(() -> new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!"));
     }
 
-    @Override
-    public List<UserContact> findByUserName(String username)
-    {
-        return usercontactrepos.findAllByUser_Username(username);
-    }
 
     @Override
     public void delete(long id, boolean isAdmin)
