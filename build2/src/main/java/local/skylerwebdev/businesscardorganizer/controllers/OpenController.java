@@ -37,7 +37,7 @@ public class OpenController
     @Autowired
     private RoleService roleService;
 
-    @PostMapping(value = "/createnewuser",
+    @PostMapping(value = "/newuser",
                  consumes = {"application/json"},
                  produces = {"application/json"})
     public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid
@@ -55,7 +55,7 @@ public class OpenController
 
         // set the location header for the newly created resource - to another controller!
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newRestaurantURI = ServletUriComponentsBuilder.fromUriString(request.getServerName() + ":" + request.getLocalPort() + "/users/user/{userId}")
+        URI newRestaurantURI = ServletUriComponentsBuilder.fromUriString(request.getServerName() + ":" + request.getLocalPort() + "/api/users/{userId}")
                                                           .buildAndExpand(newuser.getUserid())
                                                           .toUri();
         responseHeaders.setLocation(newRestaurantURI);

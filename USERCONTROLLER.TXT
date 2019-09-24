@@ -78,8 +78,8 @@ Get https://cardorganizer.herokuapp.com/api/users/getusername
     "enabled": true
 }
 
-POST https://cardorganizer.herokuapp.com/api/users/newuser
-    CREATES NEW USER WHEN LOGGED IN AS ADMIN
+POST https://cardorganizer.herokuapp.com/api/newuser
+    CREATES NEW USER WITH USER ROLE
     WORKS
     CREATE A NEW USER WITHOUT CONTACT INFO
  {

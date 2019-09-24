@@ -51,7 +51,7 @@ public class User extends Auditable
 
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnoreProperties("user")
     private List<UserRoles> userroles = new ArrayList<>();
 
