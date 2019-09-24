@@ -2,6 +2,7 @@ package local.skylerwebdev.businesscardorganizer.services;
 
 import local.skylerwebdev.businesscardorganizer.exceptions.ResourceNotFoundException;
 import local.skylerwebdev.businesscardorganizer.models.UserContact;
+import local.skylerwebdev.businesscardorganizer.models.UserContactType;
 import local.skylerwebdev.businesscardorganizer.repository.UserContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -75,7 +76,16 @@ public class UserContactServiceImpl implements UserContactService
                      .getUsername()
                      .equalsIgnoreCase(authentication.getName()) || isAdmin)
         {
-            return usercontactrepos.save(userContact);
+            UserContact newUserContact = new UserContact();
+            newUserContact.setUseremail(userContact.getUseremail());
+            newUserContact.setUserphone(userContact.getUserphone());
+            newUserContact.setUseraddress(userContact.getUseraddress());
+            newUserContact.setUsercity(userContact.getUsercity());
+            newUserContact.setUserState(userContact.getUserState());
+            newUserContact.setUserzip(userContact.getUserzip());
+            newUserContact.setUsercontacttype(userContact.getUsercontacttype());
+            return usercontactrepos.save(newUserContact);
+
         } else
         {
             throw new ResourceNotFoundException((authentication.getName() + "not authorized to make change"));

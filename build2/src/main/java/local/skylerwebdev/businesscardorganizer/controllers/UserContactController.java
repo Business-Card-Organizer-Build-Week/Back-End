@@ -1,5 +1,8 @@
 package local.skylerwebdev.businesscardorganizer.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import local.skylerwebdev.businesscardorganizer.models.UserContact;
 import local.skylerwebdev.businesscardorganizer.services.UserContactService;
 import org.slf4j.Logger;
@@ -26,9 +29,9 @@ public class UserContactController
     @Autowired
     UserContactService userContactService;
 
-    @GetMapping(value = "/useremails",
+    @GetMapping(value = "/all",
                 produces = {"application/json"})
-    public ResponseEntity<?> listAllUseremails(HttpServletRequest request)
+    public ResponseEntity<?> listAllUserContacts(HttpServletRequest request)
     {
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
@@ -40,7 +43,7 @@ public class UserContactController
 
     @GetMapping(value = "/{id}",
                 produces = {"application/json"})
-    public ResponseEntity<?> getUserEmailById(HttpServletRequest request,
+    public ResponseEntity<?> getUserContactsById(HttpServletRequest request,
                                               @PathVariable
                                               Long id)
     {
@@ -54,7 +57,7 @@ public class UserContactController
 
     @GetMapping(value = "/username/{userName}",
                 produces = {"application/json"})
-    public ResponseEntity<?> findQuoteByUserName(HttpServletRequest request,
+    public ResponseEntity<?> findUserContactByUserName(HttpServletRequest request,
                                                  @PathVariable
                                                          String userName)
     {
@@ -66,8 +69,8 @@ public class UserContactController
     }
 
 
-    @PostMapping(value = "/useremail")
-    public ResponseEntity<?> addNewQuote(HttpServletRequest request, @Valid
+    @PostMapping(value = "/usercontact")
+    public ResponseEntity<?> addNewUserContact(HttpServletRequest request, @Valid
     @RequestBody
             UserContact newUserContact) throws URISyntaxException
     {
@@ -78,25 +81,29 @@ public class UserContactController
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUseremailURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                                                     .path("/{useremailid}")
+        URI newUserContactURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                                                     .path("/{usercontactid}")
                                                      .buildAndExpand(newUserContact.getContactid())
                                                      .toUri();
-        responseHeaders.setLocation(newUseremailURI);
+        responseHeaders.setLocation(newUserContactURI);
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-
-    @DeleteMapping("/useremail/{useremailid}")
-    public ResponseEntity<?> deleteQuoteById(HttpServletRequest request,
+    @ApiOperation(value = "Deletes Contact Based on Id. ***Must be Done by logged in user or Admin***",  response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Contact Deleted Successfully", response = void.class),
+            @ApiResponse(code = 404, message = "Usercontact with id _ not found or not Authorized to make change", response = void.class)
+    })
+    @DeleteMapping("/usercontact/{usercontactid}")
+    public ResponseEntity<?> deleteContactById(HttpServletRequest request,
                                              @PathVariable
-                                                     long useremailid)
+                                                     long usercontactid)
     {
         logger.trace(request.getMethod()
                             .toUpperCase() + " " + request.getRequestURI() + " accessed");
 
-        userContactService.delete(useremailid, request.isUserInRole("ADMIN"));
+        userContactService.delete(usercontactid, request.isUserInRole("ADMIN"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

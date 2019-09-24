@@ -47,10 +47,19 @@ public class UserServiceImpl implements UserDetailsService, UserService
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthority());
     }
 
-    public User findUserById(long id) throws ResourceNotFoundException
+    public User findUserById(long id, boolean isAdmin) throws ResourceNotFoundException
     {
-        return userrepos.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+        if (id == currentUser.getUserid() || isAdmin)
+        {
+            return userrepos.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("User id " + id + " not found!"));
+        } else
+        {
+            throw new ResourceNotFoundException(id + " Not current user");
+        }
     }
 
     @Override
@@ -73,14 +82,23 @@ public class UserServiceImpl implements UserDetailsService, UserService
     }
 
     @Override
-    public User findByName(String name)
+    public User findByName(String name, boolean isAdmin)
     {
-        User uu = userrepos.findByUsername(name);
-        if (uu == null)
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+        if (name.equalsIgnoreCase(currentUser.getUsername()) || isAdmin)
         {
-            throw new ResourceNotFoundException("User name " + name + " not found!");
+            User uu = userrepos.findByUsername(name);
+            if (uu == null)
+            {
+                throw new ResourceNotFoundException("User name " + name + " not found!");
+            }
+            return uu;
+        }else
+        {
+            throw new ResourceNotFoundException(name + " Not current user");
         }
-        return uu;
     }
 
     @Transactional
@@ -110,15 +128,20 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserroles(newRoles);
 
-        for (UserContact ue : user.getUserContacts())
+        if (user.getUserContacts() != null)
         {
-            newUser.getUserContacts()
-                   .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
+            for (UserContact ue : user.getUserContacts())
+            {
+                newUser.getUserContacts()
+                        .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
+            }
         }
-
+        if (user.getSavedContacts() != null)
+        {
         for (SavedContacts s : user.getSavedContacts())
         {
             newUser.getSavedContacts().add(new SavedContacts(newUser, s.getContactid()));
+        }
         }
 
         return userrepos.save(newUser);
@@ -231,13 +254,19 @@ public class UserServiceImpl implements UserDetailsService, UserService
     }
 
     @Override
-    public void addSavedContact(long userid, int contactid)
+    public void addSavedContact(long userid, int contactid, boolean isAdmin)
     {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+        if (userid == currentUser.getUserid() || isAdmin)
+        {
         userrepos.findById(userid)
                 .orElseThrow(() -> new ResourceNotFoundException("User id " + userid + " not found!"));
         if (savedContactsRepository.checkSavedContactCombo(userid,contactid).getCount() <= 0)
         {
             savedContactsRepository.insertSavedContact(userid, contactid);
+        }
         }else
         {
             throw new ResourceNotFoundException("Combo Exists");

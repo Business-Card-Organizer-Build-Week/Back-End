@@ -11,9 +11,9 @@ public interface UserService
 
     List<User> findAll();
 
-    User findUserById(long id);
+    User findUserById(long id, boolean isAdmin);
 
-    User findByName(String name);
+    User findByName(String name, boolean isAdmin);
 
     void delete(long id);
 
@@ -25,6 +25,6 @@ public interface UserService
 
     void addUserRole(long userid, long roleid);
 
-    void addSavedContact(long userid, int contactid);
+    void addSavedContact(long userid, int contactid, boolean isAdmin);
 
 }

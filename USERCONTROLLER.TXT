@@ -1,0 +1,125 @@
+Notes
+Get 127.0.0.1:2019/api/users/all
+    RETURN ALL USERS WHEN LOGGED IN AS ADMIN
+    WORKS
+    RETURNS FULL JSON OF ALL USERS
+ {
+        "userid": 7,
+        "username": "admin",
+        "fname": "John",
+        "lname": "Smith",
+        "busname": "TestBusName",
+        "title": "Title",
+        "userContacts": [
+            {
+                "contactid": 8,
+                "useremail": "test@test.com",
+                "userphone": "5555555555",
+                "useraddress": "TestAddress",
+                "usercity": "Test City",
+                "userState": "ST",
+                "userzip": "55555",
+                "usercontacttype": {
+                    "contacttypeid": 4,
+                    "contacttype": "Business"
+                }
+            },
+            {
+                "contactid": 9,
+                "useremail": "test@test.com",
+                "userphone": "5555555555",
+                "useraddress": "TestAddress",
+                "usercity": "Test City",
+                "userState": "ST",
+                "userzip": "55555",
+                "usercontacttype": {
+                    "contacttypeid": 5,
+                    "contacttype": "Home"
+                }
+            }
+        ],
+        "savedContacts": [
+            {
+                "contactid": 12
+            },
+            {
+                "contactid": 13
+            },
+            {
+                "contactid": 14
+            }
+        ]
+    },
+
+Get 127.0.0.1:2019/api/users/ID
+    RETURN USER BY ID WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
+    WORKS
+    RETURNS FULL JSON OF USER
+
+Get 127.0.0.1:2019/api/users/name/USERNAME
+    RETURNS USER BY USERNAME WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
+    WORKS
+    RETURNS FULL JSON OF USER
+
+Get 127.0.0.1:2019/api/users/getusername
+    RETURNS USER INFORMATION
+    WORKS
+    {
+    "password": null,
+    "username": "barnbarn",
+    "authorities": [
+        {
+            "authority": "ROLE_USER"
+        }
+    ],
+    "accountNonExpired": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true,
+    "enabled": true
+}
+
+POST 127.0.0.1:2019/api/users/newuser
+    CREATES NEW USER WHEN LOGGED IN AS ADMIN
+    WORKS
+ {
+        "username": "bill",
+        "password": "testpassword",
+        "fname": "John",
+        "lname": "Smith",
+        "busname": "TestBusName",
+        "title": "Title"
+}
+
+PUT 127.0.0.1:2019/api/users/ID
+    UPDATES A USER BASED ON LOGGED IN USER
+    USED TO ADD A CONTACT
+    WORKS
+           
+   {"userContacts": [
+        {
+            "useremail": "testAddContact@test.com",
+            "userphone": "5555555555",
+            "useraddress": "TestAddress",
+            "usercity": "Test City",
+            "userState": "ST",
+            "userzip": "55555",
+            "usercontacttype": {
+                "contacttypeid": 4
+             }
+        }
+     ]
+   }
+
+DELETE 127.0.0.1:2019/api/users/delete/ID
+    DELETES USER WHEN LOGGED IN AS ADMIN
+    WORKS
+
+POST 127.0.0.1:2019/api/users/USERID/role/ROLEID
+    ADDS A USER ROLE WHEN LOGGED IN AS ADMIN
+    WORKS
+
+
+POST 127.0.0.1:2019/api/users/USERID/contact/CONTACTID
+    ADD SAVEDCONTACT TO CURRENTLY LOGGED IN USER
+
+

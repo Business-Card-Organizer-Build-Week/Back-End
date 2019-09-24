@@ -53,6 +53,8 @@ public class UserContact extends Auditable implements Serializable
     @JsonIgnoreProperties("usercontacts")
     private UserContactType usercontacttype;
 
+
+
 //    @OneToMany(mappedBy = "userContact", cascade = CascadeType.ALL)
 //    @JsonIgnoreProperties("userContact")
 //    private List<SavedContacts> savedcontacts = new ArrayList<>();
@@ -71,6 +73,17 @@ public class UserContact extends Auditable implements Serializable
         this.userState = userState;
         this.userzip = userzip;
         this.user = user;
+        this.usercontacttype = usercontacttype;
+    }
+
+    public UserContact(@Email String useremail, String userphone, String useraddress, String usercity, String userState, String userzip, UserContactType usercontacttype)
+    {
+        this.useremail = useremail;
+        this.userphone = userphone;
+        this.useraddress = useraddress;
+        this.usercity = usercity;
+        this.userState = userState;
+        this.userzip = userzip;
         this.usercontacttype = usercontacttype;
     }
 
