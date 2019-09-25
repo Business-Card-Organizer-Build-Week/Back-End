@@ -38,7 +38,7 @@ public class ContactTypeServiceImpl implements ContactTypeService
         {
             long id = c.getUser().getUserid();
             User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User id " + id + " was not found!"));
-            newCtypes.add(new UserContact(c.getUseremail(), c.getUserphone(), c.getUseraddress(), c.getUsercity(), c.getUserState(), c.getUserzip(), c.getUser(), newCtype));
+            newCtypes.add(new UserContact(c.getUseremail(),c.getFname(),c.getLname(),c.getBusname(), c.getUserphone(), c.getUseraddress(), c.getUsercity(), c.getUserState(), c.getUserzip(), c.getUser(), newCtype));
         }
         newCtype.setUsercontacts(newCtypes);
         return userContactTypeRepository.save(userContactType);

@@ -1,7 +1,10 @@
 package local.skylerwebdev.businesscardorganizer;
 
 import local.skylerwebdev.businesscardorganizer.models.*;
-import local.skylerwebdev.businesscardorganizer.services.*;
+import local.skylerwebdev.businesscardorganizer.services.ContactTypeService;
+import local.skylerwebdev.businesscardorganizer.services.RoleService;
+import local.skylerwebdev.businesscardorganizer.services.UserContactService;
+import local.skylerwebdev.businesscardorganizer.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -61,7 +64,7 @@ public class SeedData implements CommandLineRunner
         u1.getSavedContacts().add(new SavedContacts(u1,13));
         u1.getSavedContacts().add(new SavedContacts(u1,14));
         userService.save(u1);
-
+        System.out.println(u1.getUserid());
 //        userService.addSavedContact(u1, );
         // data, user
         ArrayList<UserRoles> datas = new ArrayList<>();

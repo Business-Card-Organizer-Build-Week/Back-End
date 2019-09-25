@@ -133,15 +133,15 @@ public class UserServiceImpl implements UserDetailsService, UserService
             for (UserContact ue : user.getUserContacts())
             {
                 newUser.getUserContacts()
-                        .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
+                        .add(new UserContact(ue.getUseremail(), newUser.getFname(), newUser.getLname(), newUser.getBusname(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
             }
         }
         if (user.getSavedContacts() != null)
         {
-        for (SavedContacts s : user.getSavedContacts())
-        {
-            newUser.getSavedContacts().add(new SavedContacts(newUser, s.getContactid()));
-        }
+//        for (SavedContacts s : user.getSavedContacts())
+//        {
+//            newUser.getSavedContacts().add(new SavedContacts(newUser, ));
+//        }
         }
 
         return userrepos.save(newUser);
@@ -196,17 +196,17 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 for (UserContact ue : user.getUserContacts())
                 {
                     currentUser.getUserContacts()
-                               .add(new UserContact(ue.getUseremail(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
+                               .add(new UserContact(ue.getUseremail(), currentUser.getFname(), currentUser.getLname(), currentUser.getBusname(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
                 }
             }
 
-            if(user.getSavedContacts().size() > 0)
-            {
-                for (SavedContacts s : user.getSavedContacts())
-                {
-                    currentUser.getSavedContacts().add(new SavedContacts(currentUser, s.getContactid()));
-                }
-            }
+//            if(user.getSavedContacts().size() > 0)
+//            {
+//                for (SavedContacts s : user.getSavedContacts())
+//                {
+//                    currentUser.getSavedContacts().add(new SavedContacts(currentUser()));
+//                }
+//            }
 
             return userrepos.save(currentUser);
         } else
@@ -254,7 +254,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
     }
 
     @Override
-    public void addSavedContact(long userid, int contactid, boolean isAdmin)
+    public void addSavedContact(long userid, long contactid, boolean isAdmin)
     {
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();

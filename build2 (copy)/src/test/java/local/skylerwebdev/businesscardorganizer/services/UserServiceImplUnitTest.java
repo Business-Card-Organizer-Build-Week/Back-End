@@ -89,7 +89,7 @@ public class UserServiceImplUnitTest
 
         User u2 = new User("Jane Tester",  "John", "Smith", "TestBusName", "Title","password", datas);
         u2.getUserContacts()
-                .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2, ct1));
+                .add(new UserContact("test@test.com",u2.getFname(),u2.getLname(),u2.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u2, ct1));
         User adduser = userService.save(u2);
         System.out.println(u2.getUsername());
         System.out.println(adduser.getUserid());
@@ -107,7 +107,7 @@ public class UserServiceImplUnitTest
         ArrayList<UserRoles> datas = new ArrayList<>();
         User u2 = new User("cinnamon",  "Jane", "Smith", "TestBusName", "Title","password", datas);
         u2.getUserContacts()
-                .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2, ct2));
+                .add(new UserContact("test@test.com",u2.getFname(),u2.getLname(),u2.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u2, ct2));
         User updateU2 = userService.update(u2, 10, false);
         assertNotNull(updateU2);
         assertEquals("Jane", updateU2.getFname());
@@ -163,14 +163,14 @@ public class UserServiceImplUnitTest
     @WithUserDetails("admin")
     public void JA_addSavedContact()
     {
-        userService.addSavedContact(7,5,true);
+        userService.addSavedContact(7,13,false);
     }
 
     @Test
     @WithUserDetails("admin")
     public void K_deleteSavedContact()
     {
-        userService.deleteSavedContact(7,5);
+        userService.deleteSavedContact(7,13);
 
     }
 }

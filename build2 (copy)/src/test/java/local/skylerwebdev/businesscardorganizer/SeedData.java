@@ -24,6 +24,8 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     UserContactService userContactService;
+    @Autowired
+    SavedContactsService savedContactsService;
 //    @Autowired
 //    SavedContactService savedContactService;
 
@@ -52,17 +54,17 @@ public class SeedData implements CommandLineRunner
         admins.add(new UserRoles(new User(), r2));
         admins.add(new UserRoles(new User(), r3));
         User u1 = new User("admin", "John", "Smith", "TestBusName", "Title", "password", admins);
-
         u1.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555",u1 ,ct1));
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555",u1 ,ct1));
         u1.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct2));
-        u1.getSavedContacts().add(new SavedContacts(u1,12));
-        u1.getSavedContacts().add(new SavedContacts(u1,13));
-        u1.getSavedContacts().add(new SavedContacts(u1,14));
-        User thisUser = userService.save(u1);
-        System.out.println(thisUser.getUserid());
-
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct2));
+//        u1.getSavedContacts().add(new SavedContacts(u1,12));
+//        u1.getSavedContacts().add(new SavedContacts(u1,13));
+//        u1.getSavedContacts().add(new SavedContacts(u1,14));
+//        userService.save(u1);
+        u1.setUserid(1);
+        userService.save(u1);
+        System.out.println(u1.getUserid());
 //        userService.addSavedContact(u1, );
         // data, user
         ArrayList<UserRoles> datas = new ArrayList<>();
@@ -70,30 +72,36 @@ public class SeedData implements CommandLineRunner
         datas.add(new UserRoles(new User(), r2));
         User u2 = new User("cinnamon", "John", "Smith", "TestBusName", "Title", "1234567", datas);
         u2.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct1));
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct1));
         u2.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct2));
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct2));
         u2.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct3));
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u2,ct3));
+        u2.setUserid(2);
         userService.save(u2);
+
+        savedContactsService.save(u2.getUserid(), u1.getUserContacts().get(0).getContactid());
 
         // user
         ArrayList<UserRoles> users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u3 = new User("barnbarn", "John", "Smith", "TestBusName", "Title", "password", users);
         u3.getUserContacts()
-          .add(new UserContact("test@test.com", "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct1));
+          .add(new UserContact("test@test.com",u1.getFname(), u1.getLname(), u1.getBusname(), "5555555555", "TestAddress", "Test City", "ST", "55555", u1,ct1));
         userService.save(u3);
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u4 = new User("Bob", "John", "Smith", "TestBusName", "Title", "password", users);
         userService.save(u4);
+        savedContactsService.save(u4.getUserid(),u1.getUserContacts().get(0).getContactid());
+
 
         users = new ArrayList<>();
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane",  "John", "Smith", "TestBusName", "Title","password", users);
         userService.save(u5);
+        savedContactsService.save(u5.getUserid(), u2.getUserContacts().get(0).getContactid());
 
          }
 }

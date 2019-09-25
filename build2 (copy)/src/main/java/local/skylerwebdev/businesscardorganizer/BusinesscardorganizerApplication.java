@@ -1,5 +1,8 @@
 package local.skylerwebdev.businesscardorganizer;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
-//@EnableJpaAuditing
+@EnableJpaAuditing
 @SpringBootApplication
 public class BusinesscardorganizerApplication
 {
