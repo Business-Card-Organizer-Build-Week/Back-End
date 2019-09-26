@@ -96,7 +96,7 @@ public class UserContactServiceImpl implements UserContactService
                     }
                     if (userContact.getUserphone() != null)
                     {
-                        currentContact.setUserphone(userContact.getUserphone());
+                        currentContact.setUserphone(userContact.getUserphone().replaceAll("[()\\s-]+", "").replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
                     }
                     if (userContact.getUseraddress() != null)
                     {

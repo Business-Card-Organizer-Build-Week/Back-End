@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
             for (UserContact ue : user.getUserContacts())
             {
                 newUser.getUserContacts()
-                        .add(new UserContact(ue.getUseremail(), newUser.getFname(), newUser.getLname(), newUser.getBusname(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
+                        .add(new UserContact(ue.getUseremail(), newUser.getFname(), newUser.getLname(), newUser.getBusname(), ue.getUserphone().replaceAll("[()\\s-]+", "").replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), newUser, ue.getUsercontacttype()));
             }
         }
         if (user.getSavedContacts() != null)
@@ -196,7 +196,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 for (UserContact ue : user.getUserContacts())
                 {
                     currentUser.getUserContacts()
-                               .add(new UserContact(ue.getUseremail(), currentUser.getFname(), currentUser.getLname(), currentUser.getBusname(), ue.getUserphone(), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
+                               .add(new UserContact(ue.getUseremail(), currentUser.getFname(), currentUser.getLname(), currentUser.getBusname(), ue.getUserphone().replaceAll("[()\\s-]+", "").replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"), ue.getUseraddress(), ue.getUsercity(), ue.getUserState(), ue.getUserzip(), currentUser, ue.getUsercontacttype()));
                 }
             }
 

@@ -275,7 +275,6 @@ public class UserContact extends Auditable implements Serializable
                 ", usercity='" + usercity + '\'' +
                 ", userState='" + userState + '\'' +
                 ", userzip='" + userzip + '\'' +
-                ", user=" + user +
                 ", usercontacttype=" + usercontacttype +
                 ", savedContacts=" + savedContacts +
                 '}';

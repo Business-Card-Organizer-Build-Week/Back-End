@@ -43,6 +43,6 @@ public class ContactTypeServiceImplUnitTest
         assertNotNull(newType);
         contactTypeService.save(newType);
         System.out.println(newType);
-        assertEquals("TestType", contactTypeService.findContactTypeById(18).getContacttype());
+        assertEquals("TestType", contactTypeService.findContactTypeById(22).getContacttype());
     }
 }
