@@ -87,9 +87,21 @@ public class UserContactServiceImpl implements UserContactService
                     .equalsIgnoreCase(authentication.getName()))
             {
                 long contactTypeId = currentContact.getUsercontacttype().getContacttypeid();
-
+//
 //                if (contactid == currentContact.getContactid())
 //                {
+                    if (userContact.getFname() != null)
+                    {
+                        currentContact.setFname(userContact.getFname());
+                    }
+                if (userContact.getLname() != null)
+                {
+                    currentContact.setLname(userContact.getLname());
+                }
+                if (userContact.getBusname() != null)
+                {
+                    currentContact.setBusname(userContact.getBusname());
+                }
                     if (userContact.getUseremail() != null)
                     {
                         currentContact.setUseremail(userContact.getUseremail());
@@ -114,9 +126,12 @@ public class UserContactServiceImpl implements UserContactService
                     {
                         currentContact.setUserzip(userContact.getUserzip());
                     }
+                    if (userContact.getUsercontacttype() != null)
+                    {
                     if (userContact.getUsercontacttype().getContacttypeid() != contactTypeId)
                     {
                         currentContact.setUsercontacttype(userContact.getUsercontacttype());
+                    }
                     }
                     return usercontactrepos.save(currentContact);
 
@@ -125,14 +140,15 @@ public class UserContactServiceImpl implements UserContactService
                     throw new ResourceNotFoundException(authentication.getName() + " not authorized to make change");
                 }
             }
-//        else
-//            {
-//                throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
-//            }
-         else
-        {
-            throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
-        }
+        else
+            {
+                throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
+            }
+//    }
+//         else
+//        {
+//            throw new ResourceNotFoundException("User Contact with id " + contactid + " Not Found!");
+//        }
 
     }
 }

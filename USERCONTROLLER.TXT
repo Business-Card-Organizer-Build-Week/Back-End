@@ -1,5 +1,5 @@
 Notes
-Get https://cardorganizer.herokuapp.com/api/users/all
+Get 127.0.0.1:2019/api/users/all
     RETURN ALL USERS WHEN LOGGED IN AS ADMIN
     WORKS
     RETURNS FULL JSON OF ALL USERS
@@ -51,17 +51,17 @@ Get https://cardorganizer.herokuapp.com/api/users/all
         ]
     },
 
-Get https://cardorganizer.herokuapp.com/api/users/ID
+Get 127.0.0.1:2019/api/users/ID
     RETURN USER BY ID WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
     WORKS
     RETURNS FULL JSON OF USER
 
-Get https://cardorganizer.herokuapp.com/api/users/name/USERNAME
+Get 127.0.0.1:2019/api/users/name/USERNAME
     RETURNS USER BY USERNAME WHEN LOGGED IN AS ADMIN OR LOGGED IN AS USER
     WORKS
     RETURNS FULL JSON OF USER
 
-Get https://cardorganizer.herokuapp.com/api/users/getusername
+Get 127.0.0.1:2019/api/users/getusername
     RETURNS USER INFORMATION
     WORKS
     {
@@ -78,7 +78,7 @@ Get https://cardorganizer.herokuapp.com/api/users/getusername
     "enabled": true
 }
 
-POST https://cardorganizer.herokuapp.com/api/newuser
+POST 127.0.0.1:2019/api/newuser
     CREATES NEW USER WITH USER ROLE
     WORKS
     CREATE A NEW USER WITHOUT CONTACT INFO
@@ -113,7 +113,7 @@ POST https://cardorganizer.herokuapp.com/api/newuser
             }
                         ]
 }
-PUT https://cardorganizer.herokuapp.com/api/users/user/ID
+PUT 127.0.0.1:2019/api/users/user/ID
     UPDATES A USER BASED ON LOGGED IN USER
     USED TO ADD A CONTACT
     WORKS
@@ -147,20 +147,20 @@ PUT https://cardorganizer.herokuapp.com/api/users/user/ID
                     ]
    }
 
-DELETE https://cardorganizer.herokuapp.com/api/users/delete/ID
+DELETE 127.0.0.1:2019/api/users/delete/ID
     DELETES USER WHEN LOGGED IN AS ADMIN
     WORKS
 
-POST https://cardorganizer.herokuapp.com/api/users/USERID/role/ROLEID
+POST 127.0.0.1:2019/api/users/USERID/role/ROLEID
     ADDS A USER ROLE WHEN LOGGED IN AS ADMIN
     WORKS
 
 
-POST https://cardorganizer.herokuapp.com/api/users/USERID/contact/CONTACTID
+POST 127.0.0.1:2019/api/users/USERID/contact/CONTACTID
     ADD SAVEDCONTACT TO CURRENTLY LOGGED IN USER
     WORKS
 
-DELETE https://cardorganizer.herokuapp.com/api/users/USERID/contact/CONTACTID
+DELETE 127.0.0.1:2019/api/users/USERID/contact/CONTACTID
     DELETES SAVED CONTACT
     WORKS
 
