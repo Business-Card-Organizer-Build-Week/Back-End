@@ -1,0 +1,57 @@
+GET 127.0.0.1:2019/api/contact/all
+    LISTS ALL CONTACTS WHEN LOGGED IN AS ADMIN
+    RETURNS ALL CONTACTS AS JSON DATA
+
+GET 127.0.0.1:2019/api/contact/ID
+    LISTS CONTACT BY ID WHEN LOGGED IN AS A "USER" OR "ADMIN"
+    RETURNS JSON DATA OF CONTACT
+    {
+    "contactid": 11,
+    "useremail": "test@test.com",
+    "userphone": "5555555555",
+    "useraddress": "TestAddress",
+    "usercity": "Test City",
+    "userState": "ST",
+    "userzip": "55555",
+    "user": {
+        "userid": 10,
+        "username": "cinnamon",
+        "fname": "John",
+        "lname": "Smith",
+        "busname": "TestBusName",
+        "title": "Title",
+        "savedContacts": []
+    },
+    "usercontacttype": {
+        "contacttypeid": 4,
+        "contacttype": "Business"
+    }
+    }
+
+DELETE 127.0.0.1:2019/api/contact/delete/{usercontactid}
+    DELETES CONTACT BASED ON ID
+    WORKS
+
+PUT 127.0.0.1:2019/api/contact/{contactid}
+    UPDATES CONTACT BASED ON CONTACT ID
+    WORKS
+    ONLY WORKS WHEN LOGGED IN
+    UPDATE ONE OR ALL OF THE FIELDS
+                {
+                "useremail": "test@test.com",
+                "userphone": "5555555555",
+                "useraddress": "TestAddress",
+                "usercity": "Test City",
+                "userState": "ST",
+                "userzip": "55555",
+                "usercontacttype": {
+                    "contacttypeid": 5
+                }
+            }
+
+    UPDATE CONTACT TYPE
+     { 
+       "usercontacttype": {
+       "contacttypeid": 4
+        }
+     }
